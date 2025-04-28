@@ -1,16 +1,19 @@
+# Copyright 2025 Gentoo Authors
+# Distributed under the terms of the GNU General Public License v2
+
 EAPI=8
 
 PYTHON_COMPAT=( python3_{10..13} )
-inherit git-r3 meson python-r1
 
-DESCRIPTION="An ultralightweight stacking window manager"
+inherit meson python-r1
+DESCRIPTION="A standalone Wayland session manager"
 HOMEPAGE="https://github.com/Vladimir-csp/uwsm"
-EGIT_REPO_URI="https://github.com/Vladimir-csp/uwsm.git"
+SRC_URI="https://github.com/Vladimir-csp/uwsm/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
-LICENSE="GPL-2"
+LICENSE="MIT"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
-IUSE="+uuctl +uwsm-app fumon"
+KEYWORDS="amd64 ~arm64"
+IUSE="+uuctl +uwsm-app +fumon"
 
 RDEPEND="
 	dev-python/pyxdg
@@ -19,12 +22,15 @@ RDEPEND="
 "
 DEPEND="${RDEPEND}"
 
+S="${WORKDIR}/uwsm-${PV}"
+
 src_configure() {
-	local myemesonargs=(
+	local emesonargs=(
 		$(meson_feature uuctl uuctl)
 		$(meson_feature uwsm-app uwsm-app)
 		$(meson_feature fumon fumon)
 	)
+
 	meson_src_configure
 }
 
