@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+  <maintainer type="person">
+    <email>peppapig450@pm.me</email>
+    <name>Nick</name>
+  </maintainer>
+  <upstream>
+    <remote-id type="github">eth-p/bat-extras</remote-id>
+  </upstream>
+</pkgmetadata>
