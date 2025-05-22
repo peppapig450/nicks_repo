@@ -12,7 +12,7 @@ if [[ ${PV} == *9999 ]]; then
 	EGIT_REPO_URI="https://github.com/cli/cli.git"
 else
 	SRC_URI="https://github.com/cli/cli/archive/v${PV}.tar.gz -> ${P}.tar.gz"
-	SRC_URI+=" https://github.com/peppapig450/nicks-overlay-vendored/releases/download/${PN#github-}-v${PV}/${P#github-}-deps.tar.zst"
+	SRC_URI+=" https://github.com/peppapig450/nicks-overlay-vendored/releases/download/${PN#github-}-v${PV}/${P}-deps.tar.gz" 
 	KEYWORDS="~amd64 ~arm64 ~loong ~ppc64 ~riscv"
 	S="${WORKDIR}/cli-${PV}"
 fi
