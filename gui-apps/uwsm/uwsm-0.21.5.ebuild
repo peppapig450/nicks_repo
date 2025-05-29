@@ -29,6 +29,7 @@ DEPEND="${RDEPEND}"
 
 src_configure() {
 	local emesonargs=(
+		-Ddocdir="${EPREFIX}"/usr/share/doc/${PF}
 		$(meson_feature uuctl uuctl)
 		$(meson_feature uwsm-app uwsm-app)
 		$(meson_feature fumon fumon)
