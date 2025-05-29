@@ -10,10 +10,10 @@ DESCRIPTION="A standalone Wayland session manager"
 HOMEPAGE="https://github.com/Vladimir-csp/uwsm"
 SRC_URI="https://github.com/Vladimir-csp/uwsm/archive/v${PV}.tar.gz -> ${P}.tar.gz"
 
+S="${WORKDIR}/uwsm-${PV}"
 LICENSE="MIT"
 SLOT="0"
 KEYWORDS="~amd64 ~arm64"
-S="${WORKDIR}/uwsm-${PV}"
 
 IUSE="+uuctl +uwsm-app +fumon"
 
@@ -22,10 +22,10 @@ RDEPEND="
 	dev-python/pyxdg
 	dev-python/dbus-python${PYTHON_SINGLE_USEDEP}
 	sys-apps/dbus-broker
-	${PYTHON-DEPS}
+	dev-libs/newt
+	${PYTHON_DEPS}
 "
 DEPEND="${RDEPEND}"
-
 
 src_configure() {
 	local emesonargs=(
