@@ -19,15 +19,26 @@ IUSE="+uuctl +uwsm-app +fumon"
 
 REQUIRED_USE="${PYTHON_REQUIRED_USE}"
 RDEPEND="
-	dev-python/pyxdg
-	dev-python/dbus-python${PYTHON_SINGLE_USEDEP}
 	sys-apps/dbus-broker
 	dev-libs/newt
-	${PYTHON_DEPS}
 "
-DEPEND="${RDEPEND}"
+DEPEND="
+	${RDEPEND}
+	$(python_gen_any_dep '
+		dev-python/pyxdg[${PYTHON_USEDEP}]
+		dev-python/dbus-python[${PYTHON_USEDEP}]
+	')
+"
+BDEPEND="${PYTHON_DEPS}"
+
+
+python_check_deps() {
+	python_has_version "dev-python/pyxdg[${PYTHON_USEDEP}]" &&
+	python_has_version "dev-python/dbus-python[${PYTHON_USEDEP}]"
+}
 
 src_configure() {
+	python_setup
 	local emesonargs=(
 		-Ddocdir="${EPREFIX}"/usr/share/doc/${PF}
 		$(meson_feature uuctl uuctl)
