@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>peppapig450@pm.me</email>
+	</maintainer>
+	<upstream>
+			<remote-id type="pypi">decli</remote-id>
+			<remote-id type="github">Woile/decli</remote-id>
+	</upstream>
+</pkgmetadata>
