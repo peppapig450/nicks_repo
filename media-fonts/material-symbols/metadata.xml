@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM 'https://www.gentoo.org/dtd/metadata.dtd'>
+<pkgmetadata>
+	<maintainer type="person">
+		<email>peppapig450@pm.me</email>
+		<name>peppapig450</name>
+	</maintainer>
+	<upstream>
+		<remote-id type="github">google/material-design-icons</remote-id>
+	</upstream>
+	<use>
+		<flag name="ttf">
+			Install TrueType font variants.
+		</flag>
+		<flag name="otf">
+			Install OpenType font variants.
+		</flag>
+		<flag name="variable">
+			Install variable font variants.
+		</flag>
+	</use>
+</pkgmetadata>
