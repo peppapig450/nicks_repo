@@ -660,7 +660,7 @@ declare -A GIT_CRATES=(
 	[xcb-imdkit]='https://github.com/wez/xcb-imdkit-rs;358e226573461fe540efb920e2aad740e3c6fab1;xcb-imdkit-rs-%commit%'
 )
 
-RUST_MIN_ER="1.85.0"
+RUST_MIN_VER="1.85.0"
 
 inherit bash-completion-r1 desktop cargo xdg check-reqs
 if [[ -z ${PV%%*9999} ]] ; then
