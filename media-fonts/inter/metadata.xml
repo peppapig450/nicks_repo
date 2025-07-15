@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE pkgmetadata SYSTEM "https://www.gentoo.org/dtd/metadata.dtd">
+<pkgmetadata>
+	<maintainer type="person">
+		<email>peppapig450@pm.me</email>
+		<name>peppapig450</name>
+	</maintainer>
+	<use>
+		<flag name="otf">Install OpenType font variants.</flag>
+		<flag name="ttf">Install static TrueType font variants (they're bundled in the .ttc by default)</flag>
+    </use>
+    <upstream>
+        <remote-id type="github">rsms/inter</remote-id>
+    </upstream>
+</pkgmetadata>
