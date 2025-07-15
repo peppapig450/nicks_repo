@@ -24,7 +24,7 @@ src_install() {
 		FONT_S="${S}/font" FONT_SUFFIX="otf" font_src_install
 	fi
 	if use ttf; then
-		FONT_S="${S}/font" FONT_SUFFIX="f" font_src_install
+		FONT_S="${S}/font" FONT_SUFFIX="ttf" font_src_install
 	fi
 	if use variable; then
 		FONT_S="${S}/variablefont" FONT_SUFFIX="ttf" font_src_install
