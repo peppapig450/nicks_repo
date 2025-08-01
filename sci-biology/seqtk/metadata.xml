@@ -2,12 +2,8 @@
 <!DOCTYPE pkgmetadata SYSTEM "http://www.gentoo.org/dtd/metadata.dtd">
 <pkgmetadata>
 	<maintainer type="person">
-		<email>mmokrejs@fold.natur.cuni.cz</email>
-		<name>Martin Mokrejs</name>
-	</maintainer>
-	<maintainer type="project">
-		<email>sci-biology@gentoo.org</email>
-		<name>Gentoo Biology Project</name>
+		<email>peppapig450@pm.me</email>
+		<name>peppapig450</name>
 	</maintainer>
 	<upstream>
 		<remote-id type="github">lh3/seqtk</remote-id>
