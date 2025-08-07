@@ -1,0 +1,1264 @@
+diff --git a/Cargo.lock b/Cargo.lock
+index 75156e9..d71ccd7 100644
+--- a/Cargo.lock
++++ b/Cargo.lock
+@@ -54,7 +54,7 @@ dependencies = [
+  "getrandom 0.3.3",
+  "once_cell",
+  "version_check",
+- "zerocopy 0.8.26",
++ "zerocopy",
+ ]
+ 
+ [[package]]
+@@ -156,9 +156,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "anstream"
+-version = "0.6.19"
++version = "0.6.20"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "301af1932e46185686725e0fad2f8f2aa7da69dd70bf6ecc44d6b703844a3933"
++checksum = "3ae563653d1938f79b1ab1b5e668c87c76a9930414574a6583a7b7e11a8e6192"
+ dependencies = [
+  "anstyle",
+  "anstyle-parse",
+@@ -186,22 +186,22 @@ dependencies = [
+ 
+ [[package]]
+ name = "anstyle-query"
+-version = "1.1.3"
++version = "1.1.4"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6c8bdeb6047d8983be085bab0ba1472e6dc604e7041dbf6fcd5e71523014fae9"
++checksum = "9e231f6134f61b71076a3eab506c379d4f36122f2af15a9ff04415ea4c3339e2"
+ dependencies = [
+- "windows-sys 0.59.0",
++ "windows-sys 0.60.2",
+ ]
+ 
+ [[package]]
+ name = "anstyle-wincon"
+-version = "3.0.9"
++version = "3.0.10"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "403f75924867bb1033c59fbf0797484329750cfbe3c4325cd33127941fabc882"
++checksum = "3e0633414522a32ffaac8ac6cc8f748e090c5717661fddeea04219e2344f5f2a"
+ dependencies = [
+  "anstyle",
+  "once_cell_polyfill",
+- "windows-sys 0.59.0",
++ "windows-sys 0.60.2",
+ ]
+ 
+ [[package]]
+@@ -558,9 +558,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "cc"
+-version = "1.2.30"
++version = "1.2.31"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "deec109607ca693028562ed836a5f1c4b8bd77755c4e132fc5ce11b0b6211ae7"
++checksum = "c3a42d84bb6b69d3a8b3eaacf0d88f179e1929695e1ad012b6cf64d9caaa5fd2"
+ dependencies = [
+  "jobserver",
+  "libc",
+@@ -652,9 +652,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "clap"
+-version = "4.5.41"
++version = "4.5.43"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "be92d32e80243a54711e5d7ce823c35c41c9d929dc4ab58e1276f625841aadf9"
++checksum = "50fd97c9dc2399518aa331917ac6f274280ec5eb34e555dd291899745c48ec6f"
+ dependencies = [
+  "clap_builder",
+  "clap_derive",
+@@ -662,9 +662,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "clap_builder"
+-version = "4.5.41"
++version = "4.5.43"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "707eab41e9622f9139419d573eca0900137718000c517d47da73045f54331c3d"
++checksum = "c35b5830294e1fa0462034af85cc95225a4cb07092c088c55bda3147cfcd8f65"
+ dependencies = [
+  "anstream",
+  "anstyle",
+@@ -801,7 +801,7 @@ dependencies = [
+  "anyhow",
+  "config_parser_derive",
+  "serde",
+- "toml 0.9.2",
++ "toml 0.9.5",
+ ]
+ 
+ [[package]]
+@@ -935,7 +935,7 @@ dependencies = [
+  "core-foundation-sys",
+  "coreaudio-rs",
+  "dasp_sample",
+- "jack",
++ "jack 0.11.4",
+  "jni",
+  "js-sys",
+  "libc",
+@@ -1283,6 +1283,18 @@ dependencies = [
+  "libloading 0.8.8",
+ ]
+ 
++[[package]]
++name = "dns-lookup"
++version = "2.1.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "91adf1f5ae09290d87cca8f4f0a8e49bcc30672993eb8aa11a5c9d8872d16a98"
++dependencies = [
++ "cfg-if",
++ "libc",
++ "socket2 0.6.0",
++ "windows-sys 0.60.2",
++]
++
+ [[package]]
+ name = "document-features"
+ version = "0.2.11"
+@@ -1597,9 +1609,9 @@ checksum = "9e5c1b78ca4aae1ac06c48a526a655760685149f0d465d21f37abfe57ce075c6"
+ 
+ [[package]]
+ name = "futures-lite"
+-version = "2.6.0"
++version = "2.6.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f5edaec856126859abb19ed65f39e90fea3a9574b9707f13539acf4abf7eb532"
++checksum = "f78e10609fe0e0b3f4157ffab1876319b5b0db102a2c60dc4626306dc46b44ad"
+ dependencies = [
+  "fastrand",
+  "futures-core",
+@@ -1803,20 +1815,23 @@ dependencies = [
+ 
+ [[package]]
+ name = "governor"
+-version = "0.6.3"
++version = "0.8.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "68a7f542ee6b35af73b06abc0dad1c1bae89964e4e253bc4b587b91c9637867b"
++checksum = "be93b4ec2e4710b04d9264c0c7350cdd62a8c20e5e4ac732552ebb8f0debe8eb"
+ dependencies = [
+  "cfg-if",
+- "futures",
++ "futures-sink",
+  "futures-timer",
++ "futures-util",
++ "getrandom 0.3.3",
+  "no-std-compat",
+  "nonzero_ext",
+  "parking_lot",
+  "portable-atomic",
+- "rand 0.8.5",
++ "rand 0.9.2",
+  "smallvec",
+  "spinning_top",
++ "web-time",
+ ]
+ 
+ [[package]]
+@@ -1962,9 +1977,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "h2"
+-version = "0.4.11"
++version = "0.4.12"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "17da50a276f1e01e0ba6c029e47b7100754904ee8a278f886546e98575380785"
++checksum = "f3c0b69cfcb4e1b9f1bf2f53f95f766e4661169728ec61cd3fe5a0166f2d1386"
+ dependencies = [
+  "atomic-waker",
+  "bytes",
+@@ -2178,7 +2193,7 @@ dependencies = [
+  "bytes",
+  "futures-channel",
+  "futures-util",
+- "h2 0.4.11",
++ "h2 0.4.12",
+  "http 1.3.1",
+  "http-body 1.0.1",
+  "httparse",
+@@ -2208,6 +2223,7 @@ dependencies = [
+  "tokio-rustls 0.25.0",
+  "tower-service",
+  "webpki",
++ "webpki-roots 0.26.11",
+ ]
+ 
+ [[package]]
+@@ -2241,6 +2257,7 @@ dependencies = [
+  "tokio",
+  "tokio-rustls 0.25.0",
+  "tower-service",
++ "webpki-roots 0.26.11",
+ ]
+ 
+ [[package]]
+@@ -2253,7 +2270,7 @@ dependencies = [
+  "hyper 1.6.0",
+  "hyper-util",
+  "log",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "rustls-native-certs 0.8.1",
+  "rustls-pki-types",
+  "tokio",
+@@ -2556,6 +2573,25 @@ dependencies = [
+  "serde",
+ ]
+ 
++[[package]]
++name = "is-docker"
++version = "0.2.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "928bae27f42bc99b60d9ac7334e3a21d10ad8f1835a4e12ec3ec0464765ed1b3"
++dependencies = [
++ "once_cell",
++]
++
++[[package]]
++name = "is-wsl"
++version = "0.4.0"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "173609498df190136aa7dea1a91db051746d339e18476eed5ca40521f02d7aa5"
++dependencies = [
++ "is-docker",
++ "once_cell",
++]
++
+ [[package]]
+ name = "is_terminal_polyfill"
+ version = "1.70.1"
+@@ -2608,6 +2644,19 @@ dependencies = [
+  "log",
+ ]
+ 
++[[package]]
++name = "jack"
++version = "0.13.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "f70ca699f44c04a32d419fc9ed699aaea89657fc09014bf3fa238e91d13041b9"
++dependencies = [
++ "bitflags 2.9.1",
++ "jack-sys",
++ "lazy_static",
++ "libc",
++ "log",
++]
++
+ [[package]]
+ name = "jack-sys"
+ version = "0.5.1"
+@@ -2733,7 +2782,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "07033963ba89ebaf1584d767badaa2e8fcec21aedea6b8c0346d487d49c28667"
+ dependencies = [
+  "cfg-if",
+- "windows-targets 0.53.2",
++ "windows-targets 0.53.3",
+ ]
+ 
+ [[package]]
+@@ -2792,20 +2841,19 @@ dependencies = [
+ 
+ [[package]]
+ name = "libredox"
+-version = "0.1.6"
++version = "0.1.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4488594b9328dee448adb906d8b126d9b7deb7cf5c22161ee591610bb1be83c0"
++checksum = "391290121bad3d37fbddad76d8f5d1c1c314cfc646d143d7e07a3086ddff0ce3"
+ dependencies = [
+  "bitflags 2.9.1",
+  "libc",
+- "redox_syscall 0.5.16",
++ "redox_syscall 0.5.17",
+ ]
+ 
+ [[package]]
+ name = "librespot-audio"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7e07566fe7553042936c61bbdd9bedb524114a904aa7f9738e266c641468bab8"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "aes",
+  "bytes",
+@@ -2818,17 +2866,15 @@ dependencies = [
+  "log",
+  "parking_lot",
+  "tempfile",
+- "thiserror 1.0.69",
++ "thiserror 2.0.12",
+  "tokio",
+ ]
+ 
+ [[package]]
+ name = "librespot-connect"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "67ce3a5634669ce051a425cff5437a474831111df045fd5a2bb37fabe316fa60"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+- "form_urlencoded",
+  "futures-util",
+  "librespot-core",
+  "librespot-playback",
+@@ -2836,24 +2882,25 @@ dependencies = [
+  "log",
+  "protobuf",
+  "rand 0.8.5",
+- "serde",
+  "serde_json",
+- "thiserror 1.0.69",
++ "thiserror 2.0.12",
+  "tokio",
+  "tokio-stream",
++ "uuid",
+ ]
+ 
+ [[package]]
+ name = "librespot-core"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c4c76303efcf949a59f9380220ca420c4d72fa32dbb3641a0079f429cc5e44e7"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "aes",
+  "base64 0.22.1",
+  "byteorder",
+  "bytes",
+  "data-encoding",
++ "dns-lookup",
++ "flate2",
+  "form_urlencoded",
+  "futures-core",
+  "futures-util",
+@@ -2880,7 +2927,8 @@ dependencies = [
+  "pin-project-lite",
+  "priority-queue",
+  "protobuf",
+- "quick-xml 0.36.2",
++ "protobuf-json-mapping",
++ "quick-xml",
+  "rand 0.8.5",
+  "rsa",
+  "serde",
+@@ -2888,7 +2936,7 @@ dependencies = [
+  "sha1",
+  "shannon",
+  "sysinfo",
+- "thiserror 1.0.69",
++ "thiserror 2.0.12",
+  "time",
+  "tokio",
+  "tokio-stream",
+@@ -2901,9 +2949,8 @@ dependencies = [
+ 
+ [[package]]
+ name = "librespot-metadata"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7cf6d5c46a401b1dd3e062ebdce959aa694bbae1039841756545d2e9c4f8be5f"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "async-trait",
+  "bytes",
+@@ -2913,27 +2960,26 @@ dependencies = [
+  "protobuf",
+  "serde",
+  "serde_json",
+- "thiserror 1.0.69",
++ "thiserror 2.0.12",
+  "uuid",
+ ]
+ 
+ [[package]]
+ name = "librespot-oauth"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "00dcad779aa6c3b442e493e2a40ca83a5c5fcf38a65c05b026c3587bd4f8d14f"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "log",
+  "oauth2",
+- "thiserror 1.0.69",
++ "open",
++ "thiserror 2.0.12",
+  "url",
+ ]
+ 
+ [[package]]
+ name = "librespot-playback"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4ed1f776a04c8c9275407f8d4df034f2615ea729ec6c6d0fa69f423fc571df64"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "alsa",
+  "cpal",
+@@ -2941,7 +2987,7 @@ dependencies = [
+  "gstreamer",
+  "gstreamer-app",
+  "gstreamer-audio",
+- "jack",
++ "jack 0.13.3",
+  "libpulse-binding",
+  "libpulse-simple-binding",
+  "librespot-audio",
+@@ -2949,6 +2995,7 @@ dependencies = [
+  "librespot-metadata",
+  "log",
+  "parking_lot",
++ "portable-atomic",
+  "portaudio-rs",
+  "rand 0.8.5",
+  "rand_distr",
+@@ -2956,16 +3003,15 @@ dependencies = [
+  "sdl2",
+  "shell-words",
+  "symphonia",
+- "thiserror 1.0.69",
++ "thiserror 2.0.12",
+  "tokio",
+- "zerocopy 0.7.35",
++ "zerocopy",
+ ]
+ 
+ [[package]]
+ name = "librespot-protocol"
+-version = "0.6.0"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "80802f52b5a1b3a2157454e6aca483a627fbf7b942e0a5fea037ebf3ed8b0546"
++version = "0.6.0-dev"
++source = "git+https://github.com/KUHLwasStolen/librespot.git?branch=lookup-cdn-simple#65ebcdf65fb6c07b2cec3b7eb9c74f7b87863ecf"
+ dependencies = [
+  "protobuf",
+  "protobuf-codegen",
+@@ -3779,6 +3825,17 @@ version = "1.70.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "a4895175b425cb1f87721b59f0f286c2092bd4af812243672510e1ac53e2e0ad"
+ 
++[[package]]
++name = "open"
++version = "5.3.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e2483562e62ea94312f3576a7aca397306df7990b8d89033e18766744377ef95"
++dependencies = [
++ "is-wsl",
++ "libc",
++ "pathdiff",
++]
++
+ [[package]]
+ name = "openssl"
+ version = "0.10.73"
+@@ -3882,7 +3939,7 @@ dependencies = [
+  "cfg-if",
+  "libc",
+  "petgraph",
+- "redox_syscall 0.5.16",
++ "redox_syscall 0.5.17",
+  "smallvec",
+  "thread-id",
+  "windows-targets 0.52.6",
+@@ -3894,6 +3951,12 @@ version = "1.0.15"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "57c0d7b74b563b49d38dae00a0c37d4d6de9b432382b2892f0574ddcae73fd0a"
+ 
++[[package]]
++name = "pathdiff"
++version = "0.2.3"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "df94ce210e5bc13cb6651479fa48d14f601d9858cfe0467f43ae157023b938d3"
++
+ [[package]]
+ name = "pbkdf2"
+ version = "0.12.2"
+@@ -4041,9 +4104,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "polling"
+-version = "3.9.0"
++version = "3.10.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "8ee9b2fa7a4517d2c91ff5bc6c297a427a96749d15f98fcdbb22c05571a4d4b7"
++checksum = "b5bd19146350fe804f7cb2669c851c03d69da628803dab0d98018142aaa5d829"
+ dependencies = [
+  "cfg-if",
+  "concurrent-queue",
+@@ -4101,7 +4164,7 @@ version = "0.2.21"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "85eae3c4ed2f50dcfe72643da4befc30deadb458a9b590d720cde2f2b1e97da9"
+ dependencies = [
+- "zerocopy 0.8.26",
++ "zerocopy",
+ ]
+ 
+ [[package]]
+@@ -4194,6 +4257,17 @@ dependencies = [
+  "thiserror 1.0.69",
+ ]
+ 
++[[package]]
++name = "protobuf-json-mapping"
++version = "3.7.2"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "e0d6e4be637b310d8a5c02fa195243328e2d97fa7df1127a27281ef1187fcb1d"
++dependencies = [
++ "protobuf",
++ "protobuf-support",
++ "thiserror 1.0.69",
++]
++
+ [[package]]
+ name = "protobuf-parse"
+ version = "3.7.2"
+@@ -4234,16 +4308,6 @@ version = "2.0.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "a993555f31e5a609f617c12db6250dedcac1b0a85076912c436e6fc9b2c8e6a3"
+ 
+-[[package]]
+-name = "quick-xml"
+-version = "0.36.2"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "f7649a7b4df05aed9ea7ec6f628c67c9953a43869b8bc50929569b2999d443fe"
+-dependencies = [
+- "memchr",
+- "serde",
+-]
+-
+ [[package]]
+ name = "quick-xml"
+ version = "0.37.5"
+@@ -4251,6 +4315,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "331e97a1af0bf59823e6eadffe373d7b27f485be8748f71471c662c1f269b7fb"
+ dependencies = [
+  "memchr",
++ "serde",
+ ]
+ 
+ [[package]]
+@@ -4265,7 +4330,7 @@ dependencies = [
+  "quinn-proto",
+  "quinn-udp",
+  "rustc-hash 2.1.1",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "socket2 0.5.10",
+  "thiserror 2.0.12",
+  "tokio",
+@@ -4285,7 +4350,7 @@ dependencies = [
+  "rand 0.9.2",
+  "ring",
+  "rustc-hash 2.1.1",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "rustls-pki-types",
+  "slab",
+  "thiserror 2.0.12",
+@@ -4500,9 +4565,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "redox_syscall"
+-version = "0.5.16"
++version = "0.5.17"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "7251471db004e509f4e75a62cca9435365b5ec7bcdff530d612ac7c87c44a792"
++checksum = "5407465600fb0548f1442edf71dd20683c6ed326200ace4b1ef0763521bb3b77"
+ dependencies = [
+  "bitflags 2.9.1",
+ ]
+@@ -4613,7 +4678,7 @@ dependencies = [
+  "bytes",
+  "encoding_rs",
+  "futures-core",
+- "h2 0.4.11",
++ "h2 0.4.12",
+  "http 1.3.1",
+  "http-body 1.0.1",
+  "http-body-util",
+@@ -4628,7 +4693,7 @@ dependencies = [
+  "percent-encoding",
+  "pin-project-lite",
+  "quinn",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "rustls-pki-types",
+  "serde",
+  "serde_json",
+@@ -4672,12 +4737,11 @@ dependencies = [
+ 
+ [[package]]
+ name = "rodio"
+-version = "0.19.0"
++version = "0.20.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "6006a627c1a38d37f3d3a85c6575418cfe34a5392d60a686d0071e1c8d427acb"
++checksum = "e7ceb6607dd738c99bc8cb28eff249b7cd5c8ec88b9db96c0608c1480d140fb1"
+ dependencies = [
+  "cpal",
+- "thiserror 1.0.69",
+ ]
+ 
+ [[package]]
+@@ -4830,9 +4894,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "rustls"
+-version = "0.23.30"
++version = "0.23.31"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "069a8df149a16b1a12dcc31497c3396a173844be3cac4bd40c9e7671fef96671"
++checksum = "c0ebcbd2f03de0fc1122ad9bb24b127a5a6cd51d72604a3f3c50ac459762b6cc"
+ dependencies = [
+  "aws-lc-rs",
+  "log",
+@@ -4866,7 +4930,7 @@ dependencies = [
+  "openssl-probe",
+  "rustls-pki-types",
+  "schannel",
+- "security-framework 3.2.0",
++ "security-framework 3.3.0",
+ ]
+ 
+ [[package]]
+@@ -5033,9 +5097,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "security-framework"
+-version = "3.2.0"
++version = "3.3.0"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "271720403f46ca04f7ba6f55d438f8bd878d6b8ca0a1046e8228c4145bcbb316"
++checksum = "80fb1d92c5028aa318b4b8bd7302a5bfcf48be96a37fc6fc790f806b0004ee0c"
+ dependencies = [
+  "bitflags 2.9.1",
+  "core-foundation 0.10.1",
+@@ -5076,9 +5140,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "serde_json"
+-version = "1.0.141"
++version = "1.0.142"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "30b9eff21ebe718216c6ec64e1d9ac57087aad11efc64e32002bce4a0d4c03d3"
++checksum = "030fedb782600dcbd6f02d479bf0d817ac3bb40d644745b769d6a96bc3afc5a7"
+ dependencies = [
+  "itoa",
+  "memchr",
+@@ -5201,9 +5265,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "signal-hook-registry"
+-version = "1.4.5"
++version = "1.4.6"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "9203b8055f63a2a00e2f593bb0510367fe707d7ff1e5c872de2f537b339e5410"
++checksum = "b2a4719bff48cee6b39d12c020eeb490953ad2443b7055bd0b21fca26bd8c28b"
+ dependencies = [
+  "libc",
+ ]
+@@ -5402,12 +5466,12 @@ dependencies = [
+  "regex",
+  "reqwest 0.12.22",
+  "rspotify",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "serde",
+  "serde_json",
+  "souvlaki",
+  "tokio",
+- "toml 0.9.2",
++ "toml 0.9.5",
+  "tracing",
+  "tracing-subscriber",
+  "ttl_cache",
+@@ -5639,9 +5703,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "sysinfo"
+-version = "0.31.4"
++version = "0.33.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "355dbe4f8799b304b05e1b0f05fc59b2a18d36645cf169607da45bde2f69a1be"
++checksum = "4fc858248ea01b66f19d8e8a6d55f41deaf91e9d495246fd01368d99935c6c01"
+ dependencies = [
+  "core-foundation-sys",
+  "libc",
+@@ -5736,7 +5800,7 @@ version = "0.7.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "0b1e66e07de489fe43a46678dd0b8df65e0c973909df1b60ba33874e297ba9b9"
+ dependencies = [
+- "quick-xml 0.37.5",
++ "quick-xml",
+  "thiserror 2.0.12",
+  "windows 0.61.3",
+  "windows-version",
+@@ -5930,9 +5994,9 @@ checksum = "1f3ccbac311fea05f86f61904b462b55fb3df8837a366dfc601a0161d0532f20"
+ 
+ [[package]]
+ name = "tokio"
+-version = "1.47.0"
++version = "1.47.1"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "43864ed400b6043a4757a25c7a64a8efde741aed79a056a2fb348a406701bb35"
++checksum = "89e49afdadebb872d3145a5638b59eb0691ea23e46ca484037cfab3b76b95038"
+ dependencies = [
+  "backtrace",
+  "bytes",
+@@ -5995,7 +6059,7 @@ version = "0.26.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "8e727b36a1a0e8b74c376ac2211e40c2c8af09fb4013c60d910495810f008e9b"
+ dependencies = [
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "tokio",
+ ]
+ 
+@@ -6018,19 +6082,20 @@ checksum = "edc5f74e248dc973e0dbb7b74c7e0d6fcc301c694ff50049504004ef4d0cdcd9"
+ dependencies = [
+  "futures-util",
+  "log",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "rustls-native-certs 0.8.1",
+  "rustls-pki-types",
+  "tokio",
+  "tokio-rustls 0.26.2",
+  "tungstenite",
++ "webpki-roots 0.26.11",
+ ]
+ 
+ [[package]]
+ name = "tokio-util"
+-version = "0.7.15"
++version = "0.7.16"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "66a539a9ad6d5d281510d5bd368c973d636c02dbf8a67300bfb6b950696ad7df"
++checksum = "14307c986784f72ef81c89db7d9e28d6ac26d16213b109ea501696195e6e3ce5"
+ dependencies = [
+  "bytes",
+  "futures-core",
+@@ -6053,9 +6118,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "toml"
+-version = "0.9.2"
++version = "0.9.5"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "ed0aee96c12fa71097902e0bb061a5e1ebd766a6636bb605ba401c45c1650eac"
++checksum = "75129e1dc5000bfbaa9fee9d1b21f974f9fbad9daec557a521ee6e080825f6e8"
+ dependencies = [
+  "indexmap",
+  "serde",
+@@ -6099,9 +6164,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "toml_parser"
+-version = "1.0.1"
++version = "1.0.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "97200572db069e74c512a14117b296ba0a80a30123fbbb5aa1f4a348f639ca30"
++checksum = "b551886f449aa90d4fe2bdaa9f4a2577ad2dde302c61ecf262d80b116db95c10"
+ dependencies = [
+  "winnow",
+ ]
+@@ -6252,7 +6317,7 @@ dependencies = [
+  "httparse",
+  "log",
+  "rand 0.8.5",
+- "rustls 0.23.30",
++ "rustls 0.23.31",
+  "rustls-pki-types",
+  "sha1",
+  "thiserror 1.0.69",
+@@ -6355,7 +6420,9 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "3cf4199d1e5d15ddd86a694e4d0dffa9c323ce759fea589f00fef9d81cc1931d"
+ dependencies = [
+  "getrandom 0.3.3",
++ "js-sys",
+  "rand 0.9.2",
++ "wasm-bindgen",
+ ]
+ 
+ [[package]]
+@@ -6561,13 +6628,13 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-backend"
+-version = "0.3.10"
++version = "0.3.11"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "fe770181423e5fc79d3e2a7f4410b7799d5aab1de4372853de3c6aa13ca24121"
++checksum = "673a33c33048a5ade91a6b139580fa174e19fb0d23f396dca9fa15f2e1e49b35"
+ dependencies = [
+  "cc",
+  "downcast-rs",
+- "rustix 0.38.44",
++ "rustix 1.0.8",
+  "scoped-tls",
+  "smallvec",
+  "wayland-sys",
+@@ -6575,12 +6642,12 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-client"
+-version = "0.31.10"
++version = "0.31.11"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "978fa7c67b0847dbd6a9f350ca2569174974cd4082737054dbb7fbb79d7d9a61"
++checksum = "c66a47e840dc20793f2264eb4b3e4ecb4b75d91c0dd4af04b456128e0bdd449d"
+ dependencies = [
+  "bitflags 2.9.1",
+- "rustix 0.38.44",
++ "rustix 1.0.8",
+  "wayland-backend",
+  "wayland-scanner",
+ ]
+@@ -6598,20 +6665,20 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-cursor"
+-version = "0.31.10"
++version = "0.31.11"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "a65317158dec28d00416cb16705934070aef4f8393353d41126c54264ae0f182"
++checksum = "447ccc440a881271b19e9989f75726d60faa09b95b0200a9b7eb5cc47c3eeb29"
+ dependencies = [
+- "rustix 0.38.44",
++ "rustix 1.0.8",
+  "wayland-client",
+  "xcursor",
+ ]
+ 
+ [[package]]
+ name = "wayland-protocols"
+-version = "0.32.8"
++version = "0.32.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "779075454e1e9a521794fed15886323ea0feda3f8b0fc1390f5398141310422a"
++checksum = "efa790ed75fbfd71283bd2521a1cfdc022aabcc28bdcff00851f9e4ae88d9901"
+ dependencies = [
+  "bitflags 2.9.1",
+  "wayland-backend",
+@@ -6621,9 +6688,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-protocols-plasma"
+-version = "0.3.8"
++version = "0.3.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4fd38cdad69b56ace413c6bcc1fbf5acc5e2ef4af9d5f8f1f9570c0c83eae175"
++checksum = "a07a14257c077ab3279987c4f8bb987851bf57081b93710381daea94f2c2c032"
+ dependencies = [
+  "bitflags 2.9.1",
+  "wayland-backend",
+@@ -6634,9 +6701,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-protocols-wlr"
+-version = "0.3.8"
++version = "0.3.9"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1cb6cdc73399c0e06504c437fe3cf886f25568dd5454473d565085b36d6a8bbf"
++checksum = "efd94963ed43cf9938a090ca4f7da58eb55325ec8200c3848963e98dc25b78ec"
+ dependencies = [
+  "bitflags 2.9.1",
+  "wayland-backend",
+@@ -6647,20 +6714,20 @@ dependencies = [
+ 
+ [[package]]
+ name = "wayland-scanner"
+-version = "0.31.6"
++version = "0.31.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "896fdafd5d28145fce7958917d69f2fd44469b1d4e861cb5961bcbeebc6d1484"
++checksum = "54cb1e9dc49da91950bdfd8b848c49330536d9d1fb03d4bfec8cae50caa50ae3"
+ dependencies = [
+  "proc-macro2",
+- "quick-xml 0.37.5",
++ "quick-xml",
+  "quote",
+ ]
+ 
+ [[package]]
+ name = "wayland-sys"
+-version = "0.31.6"
++version = "0.31.7"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "dbcebb399c77d5aa9fa5db874806ee7b4eba4e73650948e8f93963f128896615"
++checksum = "34949b42822155826b41db8e5d0c1be3a2bd296c747577a43a3e6daefc296142"
+ dependencies = [
+  "dlib",
+  "log",
+@@ -6704,6 +6771,15 @@ version = "0.25.4"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "5f20c57d8d7db6d3b86154206ae5d8fba62dd39573114de97c2cb0578251f8e1"
+ 
++[[package]]
++name = "webpki-roots"
++version = "0.26.11"
++source = "registry+https://github.com/rust-lang/crates.io-index"
++checksum = "521bc38abb08001b01866da9f51eb7c5d647a19260e00054a8c7fd5f9e57f7a9"
++dependencies = [
++ "webpki-roots 1.0.2",
++]
++
+ [[package]]
+ name = "webpki-roots"
+ version = "1.0.2"
+@@ -7074,7 +7150,7 @@ version = "0.60.2"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "f2f500e4d28234f72040990ec9d39e3a6b950f9f22d3dba18416c35882612bcb"
+ dependencies = [
+- "windows-targets 0.53.2",
++ "windows-targets 0.53.3",
+ ]
+ 
+ [[package]]
+@@ -7125,10 +7201,11 @@ dependencies = [
+ 
+ [[package]]
+ name = "windows-targets"
+-version = "0.53.2"
++version = "0.53.3"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "c66f69fcc9ce11da9966ddb31a40968cad001c5bedeb5c2b82ede4253ab48aef"
++checksum = "d5fe6031c4041849d7c496a8ded650796e7b6ecc19df1a431c1a363342e5dc91"
+ dependencies = [
++ "windows-link",
+  "windows_aarch64_gnullvm 0.53.0",
+  "windows_aarch64_msvc 0.53.0",
+  "windows_i686_gnu 0.53.0",
+@@ -7521,34 +7598,13 @@ dependencies = [
+  "synstructure",
+ ]
+ 
+-[[package]]
+-name = "zerocopy"
+-version = "0.7.35"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "1b9b4fd18abc82b8136838da5d50bae7bdea537c574d8dc1a34ed098d6c166f0"
+-dependencies = [
+- "byteorder",
+- "zerocopy-derive 0.7.35",
+-]
+-
+ [[package]]
+ name = "zerocopy"
+ version = "0.8.26"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+ checksum = "1039dd0d3c310cf05de012d8a39ff557cb0d23087fd44cad61df08fc31907a2f"
+ dependencies = [
+- "zerocopy-derive 0.8.26",
+-]
+-
+-[[package]]
+-name = "zerocopy-derive"
+-version = "0.7.35"
+-source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "fa4f8080344d4671fb4e831a13ad1e68092748387dfc4f55e356242fae12ce3e"
+-dependencies = [
+- "proc-macro2",
+- "quote",
+- "syn",
++ "zerocopy-derive",
+ ]
+ 
+ [[package]]
+@@ -7602,9 +7658,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "zerovec"
+-version = "0.11.2"
++version = "0.11.4"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "4a05eb080e015ba39cc9e23bbe5e7fb04d5fb040350f99f34e338d5fdd294428"
++checksum = "e7aa2bd55086f1ab526693ecbe444205da57e25f4489879da80635a46d90e73b"
+ dependencies = [
+  "yoke",
+  "zerofrom",
+@@ -7639,9 +7695,9 @@ dependencies = [
+ 
+ [[package]]
+ name = "zune-jpeg"
+-version = "0.4.19"
++version = "0.4.20"
+ source = "registry+https://github.com/rust-lang/crates.io-index"
+-checksum = "2c9e525af0a6a658e031e95f14b7f889976b74a11ba0eca5a5fc9ac8a1c43a6a"
++checksum = "fc1f7e205ce79eb2da3cd71c5f55f3589785cb7c79f6a03d1c8d1491bda5d089"
+ dependencies = [
+  "zune-core",
+ ]
+diff --git a/Cargo.toml b/Cargo.toml
+index d656b22..0a2ded6 100644
+--- a/Cargo.toml
++++ b/Cargo.toml
+@@ -21,4 +21,4 @@ cast_possible_wrap = { level = "allow", priority = 20 }
+ cast_precision_loss = { level = "allow", priority = 20 }
+ missing_errors_doc = { level = "allow", priority = 20 }
+ similar_names = { level = "allow", priority = 20 }
+-too_many_lines = { level = "allow", priority = 20 }
++too_many_lines = { level = "allow", priority = 20 }
+\ No newline at end of file
+diff --git a/README.md b/README.md
+index 20eb673..62a62dd 100644
+--- a/README.md
++++ b/README.md
+@@ -247,6 +247,22 @@ Examples of image rendering:
+ 
+ ![others](https://user-images.githubusercontent.com/40011582/172967325-d2098037-e19e-440a-a38a-5b076253ecb1.png)
+ 
++#### Pixelate
++
++If your terminal supports high-res images, but you like the pixelated look you can enable the `pixelate` feature, which also enables the `image` feature:
++
++```shell
++cargo install spotify_player --features pixelate
++```
++
++The amount of pixels can be tweaked via the `cover_img_pixels` config option.
++
++| `cover_img_pixels` | `8` | `16` | `32` | `64` |
++|--------------------|-----|------|------|------|
++|       example      | <img width="100" alt="8x8" src="https://github.com/user-attachments/assets/4137aaea-ce28-4019-8cd5-2d14327e72e4" /> | <img width="100" alt="16x16" src="https://github.com/user-attachments/assets/0ca94748-093a-468c-8fb3-1f5639666eb6" /> | <img width="100" alt="32x32" src="https://github.com/user-attachments/assets/f5d0f2da-0439-47e4-91c9-3a2aa73ac90c" /> | <img width="100" alt="64x64" src="https://github.com/user-attachments/assets/d06ef731-38fa-424d-9672-313f56c193d0" /> |
++
++To temporarily disable the `pixelate` feature just set `cover_img_pixels` to a high value like `512`.
++
+ ### Notify
+ 
+ To enable desktop notification support, `spotify_player` needs to be built/installed with `notify` feature (**disabled** by default). To install the application with `notify` feature included, run:
+diff --git a/docs/config.md b/docs/config.md
+index 4934260..4ea45d9 100644
+--- a/docs/config.md
++++ b/docs/config.md
+@@ -55,6 +55,7 @@ All configuration files should be placed inside the application's configuration
+ | `cover_img_width`                 | the width of the cover image (`image` feature only)                                                                                                    | `5`                                                         |
+ | `cover_img_length`                | the length of the cover image (`image` feature only)                                                                                                   | `9`                                                         |
+ | `cover_img_scale`                 | the scale of the cover image (`image` feature only)                                                                                                    | `1.0`                                                       |
++| `cover_img_pixels`                | the amount of pixels per side of the cover image (`image` and `pixelate` feature only)                                                                 | `16`                                                        |
+ | `seek_duration_secs`              | the duration (in seconds) to seek when using `SeekForward` and `SeekBackward` commands                                                                 | `5`                                                         |
+ | `sort_artist_albums_by_type`      | sort albums on artist's pages by type, i.e. album or single                                                                                            | `false`                                                     |
+ 
+diff --git a/examples/app.toml b/examples/app.toml
+index 38e561f..c4611a4 100644
+--- a/examples/app.toml
++++ b/examples/app.toml
+@@ -21,6 +21,7 @@ pause_icon = "▌▌"
+ liked_icon = "♥"
+ cover_img_length = 9
+ cover_img_width = 5
++cover_img_pixels = 16
+ seek_duration_secs = 5
+ 
+ [device]
+diff --git a/spotify_player/Cargo.toml b/spotify_player/Cargo.toml
+index 8d0cba1..55c8f1f 100644
+--- a/spotify_player/Cargo.toml
++++ b/spotify_player/Cargo.toml
+@@ -15,11 +15,11 @@ clap = { version = "4.5.41", features = ["derive", "string"] }
+ config_parser2 = "0.1.6"
+ crossterm = "0.29.0"
+ dirs-next = "2.0.0"
+-librespot-connect = { version = "0.6.0", optional = true }
+-librespot-core = "0.6.0"
+-librespot-oauth = "0.6.0"
+-librespot-playback = { version = "0.6.0", optional = true }
+-librespot-metadata = "0.6.0"
++librespot-connect = { git = "https://github.com/KUHLwasStolen/librespot.git", branch = "lookup-cdn-simple", optional = true }
++librespot-core = { git = "https://github.com/KUHLwasStolen/librespot.git", branch = "lookup-cdn-simple" }
++librespot-oauth = { git = "https://github.com/KUHLwasStolen/librespot.git", branch = "lookup-cdn-simple" }
++librespot-playback = { git = "https://github.com/KUHLwasStolen/librespot.git", branch = "lookup-cdn-simple", optional = true }
++librespot-metadata = { git = "https://github.com/KUHLwasStolen/librespot.git", branch = "lookup-cdn-simple" }
+ log = "0.4.27"
+ chrono = "0.4.41"
+ reqwest = { version = "0.12.22", features = ["json"] }
+@@ -55,7 +55,7 @@ clap_complete = "4.5.55"
+ which = "8.0.0"
+ fuzzy-matcher = { version = "0.3.7", optional = true }
+ html-escape = "0.2.13"
+-rustls = { version = "0.23.30", default-features = false, features = ["ring"] }
++rustls = { version = "0.23.31", default-features = false, features = ["ring"] }
+ unicode-bidi = "0.3.18"
+ 
+ [target.'cfg(any(target_os = "windows", target_os = "macos"))'.dependencies.winit]
+@@ -88,6 +88,7 @@ streaming = ["librespot-playback", "librespot-connect"]
+ media-control = ["souvlaki", "winit", "windows"]
+ image = ["viuer", "dep:image"]
+ sixel = ["image", "viuer/sixel"]
++pixelate = ["image"]
+ notify = ["notify-rust"]
+ daemon = ["daemonize", "streaming"]
+ fzf = ["fuzzy-matcher"]
+@@ -101,4 +102,4 @@ pkg-url = "{ repo }/releases/download/v{ version }/{ name }_{ target }{ archive-
+ workspace = true
+ 
+ [package.metadata.cargo-machete]
+-ignored = ["async-trait"]
++ignored = ["async-trait"]
+\ No newline at end of file
+diff --git a/spotify_player/src/auth.rs b/spotify_player/src/auth.rs
+index e5b2d79..8dfa1fb 100644
+--- a/spotify_player/src/auth.rs
++++ b/spotify_player/src/auth.rs
+@@ -1,6 +1,6 @@
+ use anyhow::Result;
+ use librespot_core::{authentication::Credentials, cache::Cache, config::SessionConfig, Session};
+-use librespot_oauth::get_access_token;
++use librespot_oauth::{OAuthClientBuilder};
+ 
+ use crate::config;
+ 
+@@ -24,9 +24,7 @@ const OAUTH_SCOPES: &[&str] = &[
+     "user-modify-playback-state",
+     "user-modify-private",
+     "user-personalized",
+-    "user-read-birthdate",
+     "user-read-currently-playing",
+-    "user-read-email",
+     "user-read-play-history",
+     "user-read-playback-position",
+     "user-read-playback-state",
+@@ -98,12 +96,17 @@ pub fn get_creds(auth_config: &AuthConfig, reauth: bool, use_cached: bool) -> Re
+             let msg = "No cached credentials found, please authenticate the application first.";
+             if reauth {
+                 eprintln!("{msg}");
+-                get_access_token(
++
++                let client_builder = OAuthClientBuilder::new(
+                     SPOTIFY_CLIENT_ID,
+                     &auth_config.login_redirect_uri,
+-                    OAUTH_SCOPES.to_vec(),
+-                )
+-                .map(|t| Credentials::with_access_token(t.access_token))?
++                    OAUTH_SCOPES.to_vec()
++                );
++
++                let oauth_client = client_builder.build()?;
++
++                oauth_client.get_access_token()
++                    .map(|t| Credentials::with_access_token(t.access_token))?
+             } else {
+                 anyhow::bail!(msg);
+             }
+diff --git a/spotify_player/src/client/mod.rs b/spotify_player/src/client/mod.rs
+index ac0a752..51cb7be 100644
+--- a/spotify_player/src/client/mod.rs
++++ b/spotify_player/src/client/mod.rs
+@@ -46,7 +46,7 @@ pub struct Client {
+     spotify: Arc<spotify::Spotify>,
+     auth_config: AuthConfig,
+     #[cfg(feature = "streaming")]
+-    stream_conn: Arc<Mutex<Option<librespot_connect::spirc::Spirc>>>,
++    stream_conn: Arc<Mutex<Option<librespot_connect::Spirc>>>,
+ }
+ 
+ impl Deref for Client {
+@@ -1663,8 +1663,19 @@ impl Client {
+         #[cfg(feature = "image")]
+         if !state.data.read().caches.images.contains_key(url) {
+             let bytes = self.retrieve_image(url, &path, false).await?;
++
++            #[cfg(not(feature = "pixelate"))]
+             let image =
+                 image::load_from_memory(&bytes).context("Failed to load image from memory")?;
++            #[cfg(feature = "pixelate")]
++            let mut image =
++                image::load_from_memory(&bytes).context("Failed to load image from memory")?;
++
++            #[cfg(feature = "pixelate")]
++            {
++                Self::pixelate_image(&mut image);
++            }
++
+             state
+                 .data
+                 .write()
+@@ -1833,6 +1844,17 @@ impl Client {
+         Ok(bytes.to_vec())
+     }
+ 
++    #[cfg(feature = "pixelate")]
++    fn pixelate_image(image: &mut image::DynamicImage) {
++        let pixels = config::get_config().app_config.cover_img_pixels;
++        let pixelated_image = image.resize(pixels, pixels, image::imageops::FilterType::Nearest);
++        *image = pixelated_image.resize(
++            image.width(),
++            image.height(),
++            image::imageops::FilterType::Nearest,
++        );
++    }
++
+     /// Process a list of albums, which includes
+     /// - sort albums by the release date
+     /// - sort albums by the type if `sort_artist_albums_by_type` config is enabled
+diff --git a/spotify_player/src/config/mod.rs b/spotify_player/src/config/mod.rs
+index d0ea458..58ec49a 100644
+--- a/spotify_player/src/config/mod.rs
++++ b/spotify_player/src/config/mod.rs
+@@ -95,6 +95,8 @@ pub struct AppConfig {
+     pub cover_img_width: usize,
+     #[cfg(feature = "image")]
+     pub cover_img_scale: f32,
++    #[cfg(feature = "pixelate")]
++    pub cover_img_pixels: u32,
+ 
+     #[cfg(feature = "media-control")]
+     pub enable_media_control: bool,
+@@ -307,6 +309,8 @@ impl Default for AppConfig {
+             cover_img_width: 5,
+             #[cfg(feature = "image")]
+             cover_img_scale: 1.0,
++            #[cfg(feature = "pixelate")]
++            cover_img_pixels: 16,
+ 
+             // Because of the "creating new window and stealing focus" behaviour
+             // when running the media control event loop on startup,
+diff --git a/spotify_player/src/streaming.rs b/spotify_player/src/streaming.rs
+index 48b79ed..2c1a41b 100644
+--- a/spotify_player/src/streaming.rs
++++ b/spotify_player/src/streaming.rs
+@@ -1,6 +1,6 @@
+ use crate::{client::Client, config, state::SharedState};
+ use anyhow::Context;
+-use librespot_connect::{config::ConnectConfig, spirc::Spirc};
++use librespot_connect::{ConnectConfig, Spirc};
+ use librespot_core::authentication::Credentials;
+ use librespot_core::Session;
+ use librespot_core::{config::DeviceType, spotify_id};
+@@ -156,17 +156,18 @@ pub async fn new_connection(
+     let connect_config = ConnectConfig {
+         name: device.name.clone(),
+         device_type: device.device_type.parse::<DeviceType>().unwrap_or_default(),
+-        initial_volume: Some(volume),
++        initial_volume: volume,
+ 
+         // non-configurable fields, use default values.
+         // We may allow users to configure these fields in a future release
+-        has_volume_ctrl: true,
+         is_group: false,
++        disable_volume: false,
++        volume_steps: 64,
+     };
+ 
+     tracing::info!("Application's connect configurations: {:?}", connect_config);
+ 
+-    let mixer = Arc::new(mixer::softmixer::SoftMixer::open(MixerConfig::default()));
++    let mixer = Arc::new(mixer::softmixer::SoftMixer::open(MixerConfig::default()).context("opening softmixer")?);
+     mixer.set_volume(volume);
+ 
+     let backend = audio_backend::find(None).expect("should be able to find an audio backend");
