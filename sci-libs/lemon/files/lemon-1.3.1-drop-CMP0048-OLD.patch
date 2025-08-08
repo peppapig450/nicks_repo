@@ -1,0 +1,19 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 03e1cc7..ff6ba52 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -1,11 +1,11 @@
+-CMAKE_MINIMUM_REQUIRED(VERSION 2.8)
++CMAKE_MINIMUM_REQUIRED(VERSION 3.10...3.28)
+ 
+-CMAKE_POLICY(SET CMP0048 OLD)
++CMAKE_POLICY(SET CMP0048 NEW)
+ 
+ SET(PROJECT_NAME "LEMON")
+ PROJECT(${PROJECT_NAME})
+ 
+-INCLUDE(FindPythonInterp)
++find_package(Python3 COMPONENTS Interpreter)
+ INCLUDE(FindWget)
+ 
+ IF(EXISTS ${PROJECT_SOURCE_DIR}/cmake/version.cmake)
