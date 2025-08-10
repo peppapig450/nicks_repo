@@ -619,9 +619,6 @@ src_unpack() {
 }
 
 src_configure() {
-	# Handled by xdg and gnome2-utils eclasses
-	sed -i '/^gnome.post_install(/,/)/d' src/meson.build || die
-
 	# Prevent meson from overriding CARGO_HOME, which leads to crates
 	# not being found as cargo attempts to fetch them itself
 	sed -i "/env.set('CARGO_HOME')*/d" src/meson.build
@@ -636,12 +633,15 @@ src_configure() {
 		"${S}/data/dev.diegovsky.Riff.metainfo.xml" \
 		|| die
 
+	local -a emesonargs=(
+		-Dbuildtype=release
+		-Doffline=true
+	)
 	meson_src_configure
 }
 
 src_compile() {
 	meson_src_compile
-	cargo_src_compile
 }
 
 src_install() {
