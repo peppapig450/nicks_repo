@@ -1,0 +1,31 @@
+From 67be1fac8c784f37b2c0651687c63f4e904049b4 Mon Sep 17 00:00:00 2001
+From: peppapig450 <peppapig450@pm.me>
+Date: Sat, 23 Aug 2025 16:14:31 -0700
+Bug: https://github.com/hyprwm/hyprsunset/pull/56
+Subject: [PATCH] cmake: fix systemd user unit install path
+
+Installing to ${CMAKE_INSTALL_LIBDIR}/systemd/user can end up in
+/usr/lib64/systemd/user on multilib systems, which systemd does not
+search. Use pkg-config's systemduserunitdir instead (with a fallback
+to /usr/lib/systemd/user) so the unit is always installed in the
+correct location.
+---
+ CMakeLists.txt | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index c6e08e3..d079a8e 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -140,4 +140,10 @@ endif()
+ include(GNUInstallDirs)
+ 
+ install(TARGETS hyprsunset)
+-install(FILES ${CMAKE_BINARY_DIR}/systemd/hyprsunset.service DESTINATION ${CMAKE_INSTALL_LIBDIR}/systemd/user)
++
++pkg_get_variable(SYSTEMD_USER_UNIT_DIR systemd systemduserunitdir)
++if (NOT SYSTEMD_USER_UNIT_DIR)
++  set(SYSTEMD_USER_UNIT_DIR "${CMAKE_INSTALL_PREFIX}/lib/systemd/user")
++endif()
++
++install(FILES ${CMAKE_BINARY_DIR}/systemd/hyprsunset.service DESTINATION "${SYSTEMD_USER_UNIT_DIR}")
